@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
           },
         },
       });
-
+      console.log(result)
       if (!result) {
         return NextResponse.json({ message: 'Task not found' }, { status: 404 });
       } else {

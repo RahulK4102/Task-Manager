@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { DialogDescription } from '@radix-ui/react-dialog'
 import { LogOut } from 'lucide-react'
+import { Loader2} from "lucide-react"
 
 enum Status {
     TO_DO = "TO_DO",
@@ -41,6 +42,7 @@ export default function TaskListPage() {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [sortedTasks, setSortedTasks] = useState(tasks);
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -69,6 +71,10 @@ export default function TaskListPage() {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem('token')
+      setLoading(true);
+      if(token) {
+        setLoading(false);
+      }
       const response = await fetch('/api/tasks', {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -156,6 +162,13 @@ export default function TaskListPage() {
     localStorage.removeItem('token')
     router.push('/')
   }
+  if (loading) {
+    return (
+        <div className="flex items-center justify-center h-screen bg-gray-900">
+            <Loader2 className="h-8 w-8 animate-spin text-gray-200" />
+        </div>
+    )
+}
 
   return (
     <div className="mx-auto p-4 bg-gray-900 min-h-screen text-gray-100">

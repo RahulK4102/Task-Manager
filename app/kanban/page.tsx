@@ -43,10 +43,9 @@ export default function KanbanBoard() {
 
     useEffect(() => {
         fetchTasks()
-    }, [])
+    }, [loading])
 
     const fetchTasks = async () => {
-        setLoading(true)
         try {
             const token = localStorage.getItem('token')
             if (!token) {
@@ -67,7 +66,7 @@ export default function KanbanBoard() {
             console.error('Error fetching tasks:', err)
             setError(`Failed to fetch tasks. ${err instanceof Error ? err.message : 'Please try again.'}`)
         } finally {
-            setLoading(false)
+                setLoading(false)
         }
     }
 
@@ -105,6 +104,9 @@ export default function KanbanBoard() {
                 },
                 body: JSON.stringify(updatedTask),
             });
+            if(response.ok){
+                setLoading(true)
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
