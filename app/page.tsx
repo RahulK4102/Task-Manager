@@ -4,7 +4,7 @@ import { CheckCircle, LayoutDashboard, Users, Calendar } from "lucide-react"
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
+    <div className="flex flex-col h-screen bg-gray-900 text-gray-100">
       <header className="px-4 lg:px-6 h-14 flex items-center border-b border-gray-800">
         <Link className="flex items-center justify-center" href="#">
           <CheckCircle className="h-6 w-6 mr-2 text-blue-500" />
